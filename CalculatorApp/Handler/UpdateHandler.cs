@@ -16,7 +16,7 @@ namespace CalculatorApp.Handlers
             Console.Clear();
             AnsiConsole.Markup("[blue]Update Calculation:[/]\n");
 
-            // گرفتن ID معتبر
+         
             int id = GetValidId("Enter the ID of the calculation to update: ");
             var calculation = _repository.GetCalculationById(id);
 
@@ -27,21 +27,21 @@ namespace CalculatorApp.Handlers
                 return;
             }
 
-            // نمایش اطلاعات فعلی محاسبه
+           
             AnsiConsole.Markup("[green]Current Calculation Details:[/]\n");
             AnsiConsole.Markup($"[yellow]{calculation.Num1} {calculation.Operation} {calculation.Num2} = {calculation.Result}[/]\n");
 
             try
             {
-                // گرفتن مقادیر جدید
+              
                 double newNum1 = GetValidInput("Enter the new first number: ");
                 double newNum2 = GetValidInput("Enter the new second number: ");
                 string operation = calculation.Operation;
 
-                // محاسبه نتیجه جدید
+               
                 double newResult = CalculateResult(newNum1, newNum2, operation);
 
-                // بروزرسانی محاسبه
+           
                 if (_repository.UpdateCalculation(id, newNum1, newNum2, newResult))
                 {
                     AnsiConsole.Markup("[green]Calculation updated successfully![/]");
@@ -77,8 +77,7 @@ namespace CalculatorApp.Handlers
             return AnsiConsole.Prompt(
                 new TextPrompt<double>($"[yellow]{prompt}[/]")
                     .ValidationErrorMessage("[red]Please enter a valid number.[/]")
-                    .Validate(value => true)); // اعتبارسنجی پیش‌فرض: همه اعداد معتبرند
-        }
+                    .Validate(value => true)); 
 
         private int GetValidId(string prompt)
         {
