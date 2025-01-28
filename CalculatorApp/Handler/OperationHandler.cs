@@ -28,7 +28,7 @@ namespace CalculatorApp.Handler
                 "/" => num2 != 0 ? num1 / num2 : throw new DivideByZeroException("Cannot divide by zero."),
                 "%" => num2 != 0 ? num1 % num2 : throw new DivideByZeroException("Cannot perform modulus with zero."),
                 "√" => num1 >= 0 ? Math.Sqrt(num1) : throw new InvalidOperationException("Square root of a negative number is not allowed."),
-                _ => throw new InvalidOperationException("Invalid operation.")
+                _ => throw new InvalidOperationException(" Invalid operation ")
             };
 
             DisplayResult(num1, num2, operation, result);
@@ -65,7 +65,7 @@ namespace CalculatorApp.Handler
         {
             try
             {
-                _repository.SaveCalculation(num1, num2, operation, result); // Use repository for saving
+                _repository.SaveCalculation(num1, num2, operation, result); 
                 AnsiConsole.Markup("[green]Calculation saved successfully![/]");
             }
             catch (Exception ex)
