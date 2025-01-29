@@ -92,7 +92,7 @@ namespace CalculatorApp.Handlers
         }
     }
 
-    }
+}
 public class CalculationRecord
 {
     public int Id { get; set; }
