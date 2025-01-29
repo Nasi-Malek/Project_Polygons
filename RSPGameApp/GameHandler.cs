@@ -11,12 +11,12 @@ namespace RSPGameApp
   
         public GameHandler(IGameRepository repository)
         {
-            _repository = repository;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         public void PlayGame()
         {
-            Console.Clear();
+                Console.Clear();
                 var playerMove = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("[blue]Choose your move:[/]")
@@ -50,9 +50,10 @@ namespace RSPGameApp
                 table.AddColumn("Date");
                 table.AddColumn("Player Move");
                 table.AddColumn("Computer Move");
-                table.AddColumn("Result")
-                .AddColumn("User Win Rate")
-                .AddColumn("Computer Win Rate");
+                table.AddColumn("Result");
+                table.AddColumn("User Win Rate");
+                table.AddColumn("Computer Win Rate");
+
 
                 foreach (var game in history)
                 {

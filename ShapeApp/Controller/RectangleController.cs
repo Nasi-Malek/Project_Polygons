@@ -7,7 +7,7 @@ namespace ShapeApp.Controller
     {
         private readonly IShapeRepository _repository;
 
-        // Constructor injection for IShapeRepository
+
         public RectangleController(IShapeRepository repository)
         {
             _repository = repository;
