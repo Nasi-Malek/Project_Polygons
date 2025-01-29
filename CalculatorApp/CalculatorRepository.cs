@@ -1,9 +1,7 @@
-﻿using ClassLibrary.Data;
+﻿using Spectre.Console;
+using ClassLibrary.Data;
 using Microsoft.EntityFrameworkCore;
-using Spectre.Console;
-using CalculationRecord = ClassLibrary.Models.CalculationRecord;
-
-
+using CalculatorApp;
 
 
 namespace CalculatorApp
@@ -19,7 +17,7 @@ namespace CalculatorApp
 
         public void SaveCalculation(double? num1, double? num2, string operation, double result)
         {
-            var calculation = new CalculationRecord
+            var calculation = new ClassLibrary.Models.CalculationRecord
             {
                 Num1 = num1,
                 Num2 = num2,
@@ -66,9 +64,9 @@ namespace CalculatorApp
         public bool UpdateCalculation(int id, double newNum1, double newNum2, double newResult)
         {
             var record = _context.CalculationRecords.IgnoreQueryFilters().FirstOrDefault(cr => cr.Id == id);
-            if (record == null || record.IsDeleted) 
+            if (record == null || record.IsDeleted) // Check if the record is soft-deleted
             {
-                return false; 
+                return false; // Prevent updating soft-deleted records
             }
 
             record.Num1 = newNum1;
@@ -102,13 +100,19 @@ namespace CalculatorApp
 
         public CalculationRecord? GetCalculationById(int id)
         {
-            return _context.CalculationRecords.IgnoreQueryFilters().FirstOrDefault(cr => cr.Id == id);
+            var record = _context.CalculationRecords.IgnoreQueryFilters().FirstOrDefault(cr => cr.Id == id);
+            if (record == null) return null;
 
-        }
-
-        Handlers.CalculationRecord? ICalculatorRepository.GetCalculationById(int id)
-        {
-            throw new NotImplementedException();
+            return new CalculationRecord
+            {
+                Id = record.Id,
+                Num1 = record.Num1,
+                Num2 = record.Num2,
+                Operation = record.Operation,
+                Result = record.Result,
+                Date = record.Date,
+                IsDeleted = record.IsDeleted
+            };
         }
     }
 }
