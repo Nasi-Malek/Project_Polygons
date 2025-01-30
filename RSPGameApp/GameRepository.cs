@@ -55,10 +55,6 @@ namespace RSPGameApp
             return (userWinRate, computerWinRate);
         }
 
-        List<GameRecord> IGameRepository.GetGameHistory()
-        {
-            throw new NotImplementedException();
-        }
-    }
+    }        
 
 }
