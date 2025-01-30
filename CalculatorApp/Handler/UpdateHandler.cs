@@ -14,6 +14,7 @@ namespace CalculatorApp.Handlers
 
         public void UpdateCalculation()
         {
+          
             try
             {
                 Console.Clear();
@@ -42,7 +43,12 @@ namespace CalculatorApp.Handlers
 
                     if (_repository.UpdateCalculation(id, newNum1, newNum2, newResult))
                     {
-                        AnsiConsole.Markup("[green]Calculation updated successfully![/]");
+                        AnsiConsole.Markup("[green]Calculation updated successfully![/]\n");
+
+                     
+                        var updatedCalculation = _repository.GetCalculationById(id);
+                        AnsiConsole.Markup("[green]Updated Calculation Details:[/]\n");
+                        AnsiConsole.Markup($"[yellow]{updatedCalculation.Num1} {updatedCalculation.Operation} {updatedCalculation.Num2} = {updatedCalculation.Result}[/]\n");
                     }
                     else
                     {
@@ -59,6 +65,7 @@ namespace CalculatorApp.Handlers
                 AnsiConsole.Markup($"[red]An error occurred: {ex.Message}[/]");
             }
         }
+       
 
         private double CalculateResult(double num1, double num2, string operation)
         {
